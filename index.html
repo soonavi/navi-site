@@ -321,13 +321,53 @@
     .step:last-child{border-bottom:none}
     .nav-links{display:none}
     .menu-btn{display:block}
+    .menu-btn{padding:11px 8px} /* ~44px tall tap target */
+    /* order the hero so copy leads and the panel follows */
+    .hero-grid{padding-top:clamp(40px,9vw,72px)}
+    .hero .lede{max-width:52ch}
   }
-  @media(max-width:560px){
+
+  @media(max-width:640px){
+    .wrap{padding:0 20px}
     .svc-grid{grid-template-columns:1fr}
-    .stat-grid{grid-template-columns:1fr}
+    /* keep stats as a tidy 2x2 grid rather than one long column */
+    .stat-grid{grid-template-columns:1fr 1fr;gap:12px}
+    .stat{padding:20px}
     .nav-cta .btn-ghost{display:none}
-    .hero-foot{gap:22px}
-    .foot-cols{gap:40px}
+    .nav-inner{height:64px}
+    .btn{padding:.8em 1.25em;font-size:.94rem}
+    .head{margin-bottom:36px}
+    .band p,.head p,.about p{font-size:1rem}
+    .panel{padding:18px}
+    .feed{min-height:0}
+    /* hero stat strip: even 3-up grid instead of ragged wrap */
+    .hero-foot{
+      display:grid;grid-template-columns:repeat(3,1fr);
+      gap:18px 14px;margin-top:34px;
+    }
+    .hero-foot b{font-size:1.2rem}
+    .hero-actions .btn{flex:1 1 auto;justify-content:center}
+    .cta-form{flex-direction:column;align-items:stretch}
+    .cta-form input{width:100%}
+    .cta-form .btn{justify-content:center}
+    .foot-cols{gap:36px}
+    .foot-inner{gap:36px}
+  }
+
+  @media(max-width:400px){
+    .wrap{padding:0 16px}
+    .hero h1{font-size:2.15rem}
+    .hero .lede{font-size:1rem}
+    .hero-foot b{font-size:1.1rem}
+    .stat .big{font-size:1.9rem}
+    .brand{font-size:1.05rem}
+    .brand .mark{width:26px;height:26px}
+    .card{padding:22px}
+    .step{padding:28px 22px}
+    /* keep the nav from crowding on the narrowest phones */
+    .nav-cta{gap:8px}
+    .nav-cta .btn-primary{padding:.7em 1.05em}
+    .nav-cta .btn-primary .arrow{display:none}
   }
 
   @media(prefers-reduced-motion:reduce){
