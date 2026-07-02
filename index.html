@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navi Marketing — AI that books more jobs and loses fewer leads</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0C1C2C;
+    --ink-2:#13283C;
+    --ink-soft:#46586B;
+    --paper:#EDF1F5;
+    --surface:#FFFFFF;
+    --line:#D8E0E8;
+    --signal:#13B0A2;
+    --signal-glow:#39D8C9;
+    --signal-deep:#0B8478;
+    --shadow:0 1px 2px rgba(12,28,44,.04),0 12px 32px rgba(12,28,44,.07);
+    --shadow-lg:0 30px 70px rgba(12,28,44,.16);
+    --r:14px;
+    --maxw:1180px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img,svg{display:block}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  .eyebrow{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:.82rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--signal-deep);
+    display:inline-flex;
+    align-items:center;
+    gap:.6em;
+  }
+  .eyebrow::before{
+    content:"";
+    width:26px;height:1px;background:var(--signal-deep);
+    display:inline-block;
+  }
+
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;line-height:1.04;letter-spacing:-.02em;font-weight:700}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:.55em;
+    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.98rem;
+    padding:.85em 1.5em;border-radius:999px;cursor:pointer;border:1px solid transparent;
+    transition:transform .18s ease,box-shadow .18s ease,background .18s ease,color .18s ease,border-color .18s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--ink);color:#fff}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(12,28,44,.28)}
+  .btn-signal{background:var(--signal);color:var(--ink)}
+  .btn-signal:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(19,176,162,.45);background:var(--signal-glow)}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn-ghost:hover{border-color:var(--ink);transform:translateY(-2px)}
+  .btn-ghost-light{background:transparent;color:#fff;border-color:rgba(255,255,255,.28)}
+  .btn-ghost-light:hover{border-color:#fff;transform:translateY(-2px)}
+  .btn .arrow{transition:transform .18s ease}
+  .btn:hover .arrow{transform:translateX(3px)}
+
+  :focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:6px}
+
+  /* ---------- nav ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(237,241,245,.78);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid transparent;
+    transition:border-color .25s ease,background .25s ease;
+  }
+  header.nav.scrolled{border-bottom-color:var(--line);background:rgba(237,241,245,.92)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:.6em;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.15rem;letter-spacing:-.01em}
+  .brand .mark{width:30px;height:30px;flex:none}
+  .brand b{font-weight:700}
+  .brand span{color:var(--signal-deep)}
+  .nav-links{display:flex;align-items:center;gap:34px}
+  .nav-links a.nl{font-size:.94rem;color:var(--ink-soft);font-weight:500;position:relative}
+  .nav-links a.nl:hover{color:var(--ink)}
+  .nav-links a.nl::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:var(--signal);transition:width .2s ease}
+  .nav-links a.nl:hover::after{width:100%}
+  .nav-cta{display:flex;align-items:center;gap:14px}
+  .menu-btn{display:none;background:none;border:none;cursor:pointer;padding:8px}
+  .menu-btn span{display:block;width:22px;height:2px;background:var(--ink);margin:4px 0;transition:.2s}
+
+  /* ---------- hero ---------- */
+  .hero{
+    background:
+      radial-gradient(1100px 520px at 88% -10%,rgba(19,176,162,.20),transparent 60%),
+      radial-gradient(700px 400px at 0% 110%,rgba(19,176,162,.08),transparent 55%),
+      linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%);
+    color:#fff;position:relative;overflow:hidden;
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    background-size:64px 64px;
+    mask-image:radial-gradient(900px 600px at 70% 30%,#000,transparent 80%);
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;
+    padding:clamp(56px,9vw,108px) 0 clamp(64px,9vw,112px);position:relative;z-index:2;
+  }
+  .hero .eyebrow{color:var(--signal-glow)}
+  .hero .eyebrow::before{background:var(--signal-glow)}
+  .hero h1{
+    font-size:clamp(2.5rem,5.6vw,4.55rem);
+    margin:22px 0 0;color:#fff;
+  }
+  .hero h1 .hl{color:var(--signal-glow)}
+  .hero .lede{
+    margin-top:24px;font-size:clamp(1.05rem,1.6vw,1.2rem);
+    color:rgba(231,239,245,.82);max-width:33ch;
+  }
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
+  .hero-foot{
+    display:flex;gap:30px;margin-top:40px;flex-wrap:wrap;
+    font-family:'Inter',sans-serif;font-weight:600;font-size:.78rem;letter-spacing:.04em;
+    color:rgba(231,239,245,.6);
+  }
+  .hero-foot b{color:#fff;font-weight:700;font-family:'Space Grotesk',sans-serif;display:block;font-size:1.4rem;letter-spacing:-.01em;margin-bottom:2px}
+
+  /* ---------- signal panel (signature) ---------- */
+  .panel{
+    background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:20px;padding:22px;
+    box-shadow:var(--shadow-lg);
+    backdrop-filter:blur(6px);
+  }
+  .panel-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+  .status{display:flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-weight:600;font-size:.78rem;letter-spacing:.05em;color:rgba(231,239,245,.85)}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--signal-glow);box-shadow:0 0 0 0 rgba(57,216,201,.6);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(57,216,201,.55)}70%{box-shadow:0 0 0 11px rgba(57,216,201,0)}100%{box-shadow:0 0 0 0 rgba(57,216,201,0)}}
+  .panel-tag{font-family:'Inter',sans-serif;font-weight:600;font-size:.72rem;letter-spacing:.08em;color:rgba(231,239,245,.45)}
+
+  .wave{display:flex;align-items:flex-end;gap:3px;height:46px;margin-bottom:20px;padding:0 2px}
+  .wave i{flex:1;background:linear-gradient(180deg,var(--signal-glow),var(--signal));border-radius:3px;opacity:.85;animation:bar 1.4s ease-in-out infinite}
+  @keyframes bar{0%,100%{height:18%}50%{height:100%}}
+
+  .feed{display:flex;flex-direction:column;gap:10px;min-height:208px}
+  .event{
+    display:flex;gap:12px;align-items:flex-start;
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);
+    border-radius:12px;padding:12px 14px;
+    opacity:0;transform:translateY(8px);
+  }
+  .event.show{animation:rise .5s ease forwards}
+  @keyframes rise{to{opacity:1;transform:translateY(0)}}
+  .ev-ico{width:30px;height:30px;border-radius:8px;flex:none;display:grid;place-items:center;background:rgba(19,176,162,.18);color:var(--signal-glow)}
+  .ev-ico svg{width:16px;height:16px}
+  .ev-body{flex:1;min-width:0}
+  .ev-title{font-weight:600;font-size:.9rem;color:#fff}
+  .ev-sub{font-size:.8rem;color:rgba(231,239,245,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ev-time{font-family:'Inter',sans-serif;font-weight:600;font-size:.7rem;color:rgba(231,239,245,.4);flex:none}
+
+  /* ---------- problem band ---------- */
+  .band{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .band-inner{display:grid;grid-template-columns:1.1fr 1fr;gap:54px;align-items:center;padding:clamp(56px,8vw,92px) 0}
+  .band h2{font-size:clamp(1.85rem,3.4vw,2.7rem);margin:18px 0 0}
+  .band p{color:var(--ink-soft);margin-top:18px;font-size:1.06rem;max-width:46ch}
+  .leak{display:flex;flex-direction:column;gap:14px}
+  .leak-row{display:flex;align-items:center;gap:16px;padding:16px 18px;border:1px solid var(--line);border-radius:var(--r);background:var(--paper)}
+  .leak-row .x{width:34px;height:34px;border-radius:9px;flex:none;display:grid;place-items:center;background:rgba(214,69,69,.1);color:#C2433F;font-weight:700;font-family:'Space Grotesk',sans-serif}
+  .leak-row p{margin:0;font-size:.97rem;color:var(--ink);max-width:none}
+  .leak-row b{font-weight:600}
+
+  /* ---------- sections ---------- */
+  section.block{padding:clamp(64px,9vw,112px) 0}
+  .head{max-width:640px;margin-bottom:52px}
+  .head h2{font-size:clamp(1.95rem,3.6vw,2.85rem);margin:18px 0 0}
+  .head p{color:var(--ink-soft);margin-top:18px;font-size:1.08rem}
+
+  /* services */
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+    padding:28px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+    transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+  }
+  .card::before{content:"";position:absolute;left:0;top:0;height:3px;width:0;background:var(--signal);transition:width .3s ease}
+  .card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:#C6D2DC}
+  .card:hover::before{width:100%}
+  .card .ico{width:46px;height:46px;border-radius:11px;display:grid;place-items:center;background:var(--ink);color:var(--signal-glow);margin-bottom:18px}
+  .card .ico svg{width:22px;height:22px}
+  .card h3{font-size:1.22rem;margin-bottom:9px}
+  .card p{color:var(--ink-soft);font-size:.96rem}
+  .card .num{position:absolute;right:20px;top:18px;font-family:'Inter',sans-serif;font-weight:600;font-size:.74rem;color:var(--line);letter-spacing:.06em}
+  .card.wide{grid-column:span 1}
+
+  /* how it works */
+  .how{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:8px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--paper)}
+  .step{padding:34px 30px;border-right:1px solid var(--line);position:relative}
+  .step:last-child{border-right:none}
+  .step .sn{font-family:'Inter',sans-serif;font-weight:600;font-weight:700;font-size:.86rem;color:var(--signal-deep);letter-spacing:.12em}
+  .step h3{font-size:1.3rem;margin:14px 0 10px}
+  .step p{color:var(--ink-soft);font-size:.96rem}
+  .step .track{height:3px;background:var(--line);margin-top:24px;border-radius:3px;overflow:hidden}
+  .step .track i{display:block;height:100%;width:100%;background:var(--signal);transform-origin:left;transform:scaleX(0)}
+  .step.reveal .track i{transition:transform .9s ease .2s;transform:scaleX(1)}
+
+  /* results / stats */
+  .results-inner{display:grid;grid-template-columns:.95fr 1.05fr;gap:54px;align-items:center}
+  .quote{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(1.5rem,3vw,2.15rem);line-height:1.2;letter-spacing:-.02em}
+  .quote .hl{color:var(--signal-deep)}
+  .quote-sub{color:var(--ink-soft);margin-top:22px;font-size:1.05rem;max-width:44ch}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:26px;box-shadow:var(--shadow)}
+  .stat .big{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(2.1rem,4vw,2.9rem);letter-spacing:-.02em;color:var(--ink);line-height:1}
+  .stat .big em{color:var(--signal-deep);font-style:normal}
+  .stat .lab{font-family:'Inter',sans-serif;font-weight:600;font-size:.76rem;letter-spacing:.06em;color:var(--ink-soft);text-transform:uppercase;margin-top:12px}
+
+  /* about */
+  .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center}
+  .about p{color:var(--ink-soft);font-size:1.06rem;margin-top:18px}
+  .about p:first-of-type{margin-top:24px}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+  .pill{font-family:'Inter',sans-serif;font-weight:600;font-size:.78rem;letter-spacing:.04em;padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink)}
+  .coords{
+    background:var(--ink);color:#fff;border-radius:var(--r);padding:34px;position:relative;overflow:hidden;
+    box-shadow:var(--shadow-lg);
+  }
+  .coords::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:40px 40px;mask-image:radial-gradient(400px 300px at 80% 20%,#000,transparent)}
+  .coords .eyebrow{color:var(--signal-glow);position:relative;z-index:2}
+  .coords .eyebrow::before{background:var(--signal-glow)}
+  .coords h3{font-size:1.6rem;margin:16px 0 10px;color:#fff;position:relative;z-index:2}
+  .coords p{color:rgba(231,239,245,.72);position:relative;z-index:2}
+  .coords .line{display:flex;justify-content:space-between;font-family:'Inter',sans-serif;font-weight:600;font-size:.82rem;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.1);position:relative;z-index:2}
+  .coords .line:last-child{border-bottom:none}
+  .coords .line span:first-child{color:rgba(231,239,245,.5)}
+
+  /* cta */
+  .cta{
+    background:
+      radial-gradient(800px 400px at 85% 0%,rgba(19,176,162,.22),transparent 60%),
+      linear-gradient(180deg,var(--ink-2),var(--ink));
+    color:#fff;border-radius:24px;padding:clamp(48px,7vw,80px);text-align:center;position:relative;overflow:hidden;
+  }
+  .cta h2{font-size:clamp(2rem,4vw,3rem);color:#fff}
+  .cta p{color:rgba(231,239,245,.8);margin:20px auto 0;max-width:48ch;font-size:1.1rem}
+  .cta-form{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:36px;position:relative;z-index:2}
+  .cta-form input{
+    font-family:'Inter',sans-serif;font-size:1rem;padding:.95em 1.2em;border-radius:999px;border:1px solid rgba(255,255,255,.2);
+    background:rgba(255,255,255,.08);color:#fff;width:320px;max-width:100%;
+  }
+  .cta-form input::placeholder{color:rgba(231,239,245,.5)}
+  .cta-form input:focus{outline:2px solid var(--signal-glow);outline-offset:2px;background:rgba(255,255,255,.12)}
+  .cta-note{font-family:'Inter',sans-serif;font-weight:600;font-size:.76rem;color:rgba(231,239,245,.5);margin-top:20px;position:relative;z-index:2}
+  .cta-done{display:none;margin-top:30px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1.1rem;color:var(--signal-glow);position:relative;z-index:2}
+  .cta-error{display:none;margin-top:24px;font-size:.98rem;color:#FFC9C4;position:relative;z-index:2}
+
+  /* footer */
+  footer{padding:60px 0 40px;border-top:1px solid var(--line)}
+  .foot-inner{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-start}
+  .foot-brand{max-width:300px}
+  .foot-brand p{color:var(--ink-soft);font-size:.92rem;margin-top:12px}
+  .foot-cols{display:flex;gap:64px;flex-wrap:wrap}
+  .foot-col h4{font-family:'Inter',sans-serif;font-weight:600;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px;font-weight:700}
+  .foot-col a{display:block;font-size:.94rem;color:var(--ink);margin-bottom:9px}
+  .foot-col a:hover{color:var(--signal-deep)}
+  .foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:48px;padding-top:24px;border-top:1px solid var(--line);font-family:'Inter',sans-serif;font-weight:600;font-size:.76rem;color:var(--ink-soft);letter-spacing:.03em}
+
+  /* reveal */
+  .r{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+  .r.in{opacity:1;transform:none}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:900px){
+    .hero-grid,.band-inner,.results-inner,.about-inner{grid-template-columns:1fr;gap:40px}
+    .svc-grid{grid-template-columns:repeat(2,1fr)}
+    .steps{grid-template-columns:1fr}
+    .step{border-right:none;border-bottom:1px solid var(--line)}
+    .step:last-child{border-bottom:none}
+    .nav-links{display:none}
+  }
+  @media(max-width:560px){
+    .svc-grid{grid-template-columns:1fr}
+    .stat-grid{grid-template-columns:1fr}
+    .nav-cta .btn-ghost{display:none}
+    .hero-foot{gap:22px}
+    .foot-cols{gap:40px}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    .r{opacity:1;transform:none}
+    .event{opacity:1;transform:none}
+    .step .track i{transform:scaleX(1)}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="Navi Marketing home">
+      <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="16" cy="16" r="15" stroke="#0C1C2C" stroke-width="1.5"/>
+        <circle cx="16" cy="16" r="3.4" fill="#13B0A2"/>
+        <path d="M16 16 L24 8" stroke="#0C1C2C" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M9 16 a7 7 0 0 1 7-7" stroke="#13B0A2" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M6 16 a10 10 0 0 1 10-10" stroke="#13B0A2" stroke-width="1.2" stroke-linecap="round" opacity=".5"/>
+      </svg>
+      <span style="color:var(--ink)">Navi<b style="font-weight:400;color:var(--ink-soft)"> Marketing</b></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a class="nl" href="#services">Services</a>
+      <a class="nl" href="#how">How it works</a>
+      <a class="nl" href="#results">Why it pays</a>
+      <a class="nl" href="#about">About</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="#contact">Contact</a>
+      <a class="btn btn-primary" href="#contact">Book a call <span class="arrow">→</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">AI built for local business</span>
+      <h1>Turn missed calls and dead leads into <span class="hl">booked revenue</span>.</h1>
+      <p class="lede">We build and run the AI that answers your phone, follows up with every lead, and keeps your calendar full. You run the business. We handle what falls through the cracks.</p>
+      <div class="hero-actions">
+        <a class="btn btn-signal" href="#contact">Book a 15-minute call <span class="arrow">→</span></a>
+        <a class="btn btn-ghost-light" href="#services">See what we build</a>
+      </div>
+      <div class="hero-foot">
+        <div><b>&lt;2 rings</b>Every call answered</div>
+        <div><b>24/7</b>Never closed, never asleep</div>
+        <div><b>&lt;60 sec</b>Lead follow-up time</div>
+      </div>
+    </div>
+
+    <!-- SIGNATURE: live signal panel -->
+    <div class="panel" aria-label="Live example of Navi handling business activity">
+      <div class="panel-top">
+        <div class="status"><span class="dot"></span> Navi is online</div>
+        <div class="panel-tag">LIVE FEED</div>
+      </div>
+      <div class="wave" aria-hidden="true">
+        <i style="animation-delay:0s"></i><i style="animation-delay:.1s"></i><i style="animation-delay:.2s"></i>
+        <i style="animation-delay:.3s"></i><i style="animation-delay:.15s"></i><i style="animation-delay:.05s"></i>
+        <i style="animation-delay:.25s"></i><i style="animation-delay:.35s"></i><i style="animation-delay:.12s"></i>
+        <i style="animation-delay:.22s"></i><i style="animation-delay:.08s"></i><i style="animation-delay:.3s"></i>
+        <i style="animation-delay:.18s"></i><i style="animation-delay:.28s"></i><i style="animation-delay:.04s"></i>
+      </div>
+      <div class="feed" id="feed"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM BAND -->
+<section class="band">
+  <div class="wrap band-inner">
+    <div class="r">
+      <span class="eyebrow">The leak</span>
+      <h2>Most businesses lose money before lunch.</h2>
+      <p>It is rarely a marketing problem. It is a follow-through problem. The call comes in and nobody picks up. The lead fills out a form and waits two days for a reply. By then they have already hired someone else.</p>
+    </div>
+    <div class="leak r">
+      <div class="leak-row"><span class="x">!</span><p><b>The missed call.</b> 1 in 4 calls to small businesses go unanswered, and most callers never try twice.</p></div>
+      <div class="leak-row"><span class="x">!</span><p><b>The slow reply.</b> A lead is far more likely to book the business that answers first, not the best one.</p></div>
+      <div class="leak-row"><span class="x">!</span><p><b>The forgotten quote.</b> Quotes sit in an inbox with no follow-up, and the job quietly goes cold.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="block" id="services">
+  <div class="wrap">
+    <div class="head r">
+      <span class="eyebrow">What we build</span>
+      <h2>Five systems that plug the leaks.</h2>
+      <p>We do not sell software you have to learn. We set up the parts that make the phone ring and the calendar fill, connect them to your business, and keep them running.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="card r">
+        <span class="num">01</span>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <h3>AI receptionist</h3>
+        <p>Answers every call day or night. Books appointments, answers the common questions, and texts you the details. No voicemail, no lost jobs.</p>
+      </div>
+      <div class="card r">
+        <span class="num">02</span>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Lead generation</h3>
+        <p>We find the people and businesses who need what you sell and put them in front of you. A steady list you can work, not a one-time blast.</p>
+      </div>
+      <div class="card r">
+        <span class="num">03</span>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <h3>Automated follow-up</h3>
+        <p>Most leads go cold because nobody follows up fast enough. Navi texts and emails every new lead within minutes and keeps going until they reply.</p>
+      </div>
+      <div class="card r">
+        <span class="num">04</span>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <h3>Websites that convert</h3>
+        <p>A fast, clean site built to turn visitors into calls and bookings. Made to load quick and get found, not just look nice.</p>
+      </div>
+      <div class="card r">
+        <span class="num">05</span>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg></div>
+        <h3>Strategy and one dashboard</h3>
+        <p>We look at where you actually lose money and put AI only where it pays off. One screen shows your calls, leads, and bookings in real time.</p>
+      </div>
+      <div class="card r" style="background:var(--ink);color:#fff;border-color:var(--ink);display:flex;flex-direction:column;justify-content:center">
+        <h3 style="color:#fff">Not sure where to start?</h3>
+        <p style="color:rgba(231,239,245,.75)">Most owners do not need all five. We find the one or two that move revenue first.</p>
+        <a class="btn btn-signal" href="#contact" style="margin-top:18px;align-self:flex-start">Find my leak <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how block" id="how">
+  <div class="wrap">
+    <div class="head r">
+      <span class="eyebrow">How it works</span>
+      <h2>Three steps. Usually live within a week.</h2>
+      <p>No long onboarding, no thick contracts. We do the setup so you can keep doing your job.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal r">
+        <div class="sn">STEP 01</div>
+        <h3>We map the leak</h3>
+        <p>A 15-minute call to find where revenue slips out: missed calls, slow follow-up, a site that does not convert.</p>
+        <div class="track"><i></i></div>
+      </div>
+      <div class="step reveal r">
+        <div class="sn">STEP 02</div>
+        <h3>We build and connect it</h3>
+        <p>We set up the AI and wire it into your phone, calendar, and inbox. You approve how it sounds before it goes live.</p>
+        <div class="track"><i></i></div>
+      </div>
+      <div class="step reveal r">
+        <div class="sn">STEP 03</div>
+        <h3>It runs without you</h3>
+        <p>It works every day on its own. You watch the bookings land, and we keep tuning it as you grow.</p>
+        <div class="track"><i></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="block" id="results">
+  <div class="wrap results-inner">
+    <div class="r">
+      <span class="eyebrow">Why it pays</span>
+      <p class="quote">A missed call is a customer <span class="hl">calling your competitor.</span></p>
+      <p class="quote-sub">The math is simple. If answering one more call a day books one more job a week, the system pays for itself fast. Everything we build is pointed at that number.</p>
+    </div>
+    <div class="stat-grid">
+      <div class="stat r"><div class="big"><em>24/7</em></div><div class="lab">Coverage with zero overtime</div></div>
+      <div class="stat r"><div class="big">&lt;1<em> min</em></div><div class="lab">From new lead to first reply</div></div>
+      <div class="stat r"><div class="big">0<em> jobs</em></div><div class="lab">Lost to a full voicemail box</div></div>
+      <div class="stat r"><div class="big">1<em> screen</em></div><div class="lab">Calls, leads, and bookings in view</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="how block" id="about">
+  <div class="wrap about-inner">
+    <div class="r">
+      <span class="eyebrow">Who we are</span>
+      <h2 style="font-size:clamp(1.9rem,3.4vw,2.6rem);margin-top:18px">Built for owners, not engineers.</h2>
+      <p>Navi Marketing is a small team that builds AI systems for local businesses. We are based in Jacksonville and we work with owners who would rather grow than fight with another piece of software.</p>
+      <p>We keep it plain. No jargon, no long contracts, no system you have to babysit. Just the parts that make the phone ring and the calendar fill, set up and running for you.</p>
+      <div class="pills">
+        <span class="pill">No long contracts</span>
+        <span class="pill">Live in about a week</span>
+        <span class="pill">Jacksonville, FL</span>
+        <span class="pill">Plain English only</span>
+      </div>
+    </div>
+    <div class="coords">
+      <span class="eyebrow">Our heading</span>
+      <h3>Point AI at the money.</h3>
+      <p style="margin-bottom:22px">We only build what earns. Here is how we keep ourselves honest.</p>
+      <div class="line"><span>Goal</span><span>More booked revenue</span></div>
+      <div class="line"><span>Method</span><span>Plug the leaks first</span></div>
+      <div class="line"><span>Setup time</span><span>~5 to 7 days</span></div>
+      <div class="line"><span>You keep</span><span>Full control</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="block" id="contact">
+  <div class="wrap">
+    <div class="cta r">
+      <h2>Let's find where you're losing revenue.</h2>
+      <p>Leave your email and we will set up a 15-minute call. We will tell you the one fix worth making first, even if you never hire us.</p>
+      <div class="cta-form" id="ctaForm">
+        <input type="email" id="email" placeholder="you@yourbusiness.com" aria-label="Your email" autocomplete="email">
+        <input type="text" id="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0">
+        <button class="btn btn-signal" type="button" id="ctaBtn">Book my call <span class="arrow">→</span></button>
+      </div>
+      <div class="cta-done" id="ctaDone">Got it. We will reach out within one business day.</div>
+      <div class="cta-error" id="ctaError">Something went wrong. Email us directly at <a href="mailto:navimarketing@gmail.com" style="color:#fff;text-decoration:underline">navimarketing@gmail.com</a>.</div>
+      <div class="cta-note">No spam. No pressure. Just a straight answer.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div class="foot-brand">
+        <a class="brand" href="#top">
+          <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <circle cx="16" cy="16" r="15" stroke="#0C1C2C" stroke-width="1.5"/>
+            <circle cx="16" cy="16" r="3.4" fill="#13B0A2"/>
+            <path d="M16 16 L24 8" stroke="#0C1C2C" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M9 16 a7 7 0 0 1 7-7" stroke="#13B0A2" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <span style="color:var(--ink)">Navi<b style="font-weight:400;color:var(--ink-soft)"> Marketing</b></span>
+        </a>
+        <p>AI systems that make the phone ring and the calendar fill, built for local businesses.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h4>Services</h4>
+          <a href="#services">AI receptionist</a>
+          <a href="#services">Lead generation</a>
+          <a href="#services">Automated follow-up</a>
+          <a href="#services">Websites</a>
+        </div>
+        <div class="foot-col">
+          <h4>Company</h4>
+          <a href="#how">How it works</a>
+          <a href="#results">Why it pays</a>
+          <a href="#about">About</a>
+          <a href="#contact">Book a call</a>
+        </div>
+        <div class="foot-col">
+          <h4>Contact</h4>
+          <a href="mailto:navimarketing@gmail.com">navimarketing@gmail.com</a>
+          <a href="#contact">Jacksonville, FL</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Navi Marketing. All rights reserved.</span>
+      <span>Built to make you money, not just look good.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // nav border on scroll
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10));
+
+  // reveal on scroll
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:.15});
+  document.querySelectorAll('.r').forEach(el=>io.observe(el));
+
+  // live feed (signature)
+  const events=[
+    {t:'Call answered',s:'New caller, kitchen leak. Booked Tue 10:00 AM.',time:'now',ic:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.1 9.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>'},
+    {t:'Lead captured',s:'Sarah M. requested a quote from the website.',time:'12s',ic:'<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>'},
+    {t:'Follow-up sent',s:'Text + email to Sarah. Awaiting reply.',time:'31s',ic:'<path d="M4 4h16v16H4z" opacity="0"/><polyline points="22,6 12,13 2,6"/><path d="M2 6h20v12H2z" fill="none"/>'},
+    {t:'Reply received',s:'"Yes, Thursday works." Sending booking link.',time:'1m',ic:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>'},
+    {t:'Appointment booked',s:'Thursday 2:00 PM added to your calendar.',time:'2m',ic:'<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>'}
+  ];
+  const feed=document.getElementById('feed');
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  function makeEvent(e){
+    const d=document.createElement('div');
+    d.className='event show';
+    d.innerHTML='<div class="ev-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+e.ic+'</svg></div>'+
+      '<div class="ev-body"><div class="ev-title">'+e.t+'</div><div class="ev-sub">'+e.s+'</div></div>'+
+      '<div class="ev-time">'+e.time+'</div>';
+    return d;
+  }
+
+  if(reduce){
+    events.slice(0,4).forEach(e=>{const el=makeEvent(e);el.classList.remove('show');el.style.opacity=1;el.style.transform='none';feed.appendChild(el);});
+  }else{
+    let i=0;
+    function tick(){
+      const el=makeEvent(events[i%events.length]);
+      feed.prepend(el);
+      while(feed.children.length>4){feed.removeChild(feed.lastChild);}
+      i++;
+      setTimeout(tick,2600);
+    }
+    tick();
+  }
+
+  // ===================================================================
+  // CONTACT FORM  — delivers leads to your inbox via Web3Forms (free).
+  // TO GO LIVE: get a free access key at https://web3forms.com (enter
+  // navimarketing@gmail.com, they email you a key), then paste it below.
+  // ===================================================================
+  const WEB3FORMS_KEY = 'a1318145-69be-4164-8cea-9d7cd3603aab';
+
+  const btn=document.getElementById('ctaBtn');
+  const emailEl=document.getElementById('email');
+  const formEl=document.getElementById('ctaForm');
+  const doneEl=document.getElementById('ctaDone');
+  const errEl=document.getElementById('ctaError');
+
+  function showDone(){formEl.style.display='none';errEl.style.display='none';doneEl.style.display='block';}
+
+  async function submitLead(){
+    const email=emailEl.value.trim();
+    if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){emailEl.focus();return;}
+    if(document.getElementById('hp').value){showDone();return;} // silently drop bots
+
+    if(WEB3FORMS_KEY==='YOUR_WEB3FORMS_ACCESS_KEY'){
+      // key not set yet — don't pretend it sent
+      errEl.innerHTML='Form not connected yet. Add your Web3Forms key to go live.';
+      errEl.style.display='block';
+      return;
+    }
+
+    const original=btn.innerHTML;
+    btn.disabled=true;btn.style.opacity='.7';btn.innerHTML='Sending...';
+    errEl.style.display='none';
+    try{
+      const res=await fetch('https://api.web3forms.com/submit',{
+        method:'POST',
+        headers:{'Content-Type':'application/json',Accept:'application/json'},
+        body:JSON.stringify({
+          access_key:WEB3FORMS_KEY,
+          subject:'New lead from the Navi Marketing site',
+          from_name:'Navi Marketing website',
+          email:email,
+          message:'New call request from: '+email
+        })
+      });
+      const data=await res.json();
+      if(data.success){showDone();}
+      else{throw new Error(data.message||'Submission failed');}
+    }catch(e){
+      btn.disabled=false;btn.style.opacity='1';btn.innerHTML=original;
+      errEl.innerHTML='Something went wrong. Email us directly at <a href="mailto:navimarketing@gmail.com" style="color:#fff;text-decoration:underline">navimarketing@gmail.com</a>.';
+      errEl.style.display='block';
+    }
+  }
+
+  btn.addEventListener('click',submitLead);
+  emailEl.addEventListener('keydown',e=>{if(e.key==='Enter')submitLead();});
+</script>
+</body>
+</html>
