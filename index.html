@@ -314,7 +314,9 @@
 
   /* ---------- responsive ---------- */
   @media(max-width:900px){
-    .hero-grid,.band-inner,.results-inner,.about-inner{grid-template-columns:1fr;gap:40px}
+    /* minmax(0,1fr) stops long nowrap content (feed events) from widening the column past the viewport */
+    .hero-grid,.band-inner,.results-inner,.about-inner{grid-template-columns:minmax(0,1fr);gap:40px}
+    .hero-grid>*,.band-inner>*,.results-inner>*,.about-inner>*{min-width:0;max-width:100%}
     .svc-grid{grid-template-columns:repeat(2,1fr)}
     .steps{grid-template-columns:1fr}
     .step{border-right:none;border-bottom:1px solid var(--line)}
@@ -340,6 +342,8 @@
     .band p,.head p,.about p{font-size:1rem}
     .panel{padding:18px}
     .feed{min-height:0}
+    /* wrap feed text instead of truncating on small screens */
+    .ev-sub{white-space:normal;overflow:visible;text-overflow:clip}
     /* hero stat strip: even 3-up grid instead of ragged wrap */
     .hero-foot{
       display:grid;grid-template-columns:repeat(3,1fr);
