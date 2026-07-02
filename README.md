@@ -11,7 +11,7 @@ There are exactly **4 steps** to go live. Only Step 1 requires editing the file.
 The form is fully wired to send leads straight to your Gmail. It just needs one free key.
 
 1. Go to https://web3forms.com
-2. Enter `navimarketing@gmail.com` and submit. They email you an **Access Key** right away.
+2. Enter `soonaviscaling@gmail.com` and submit. They email you an **Access Key** right away.
 3. Open `index.html`, find this line near the bottom (inside the `<script>`):
 
    ```js
@@ -72,5 +72,5 @@ Always copy the exact records Vercel shows you, in case they differ.
 ## Notes
 
 - The stats on the site (under 2 rings, under 60 seconds, 24/7) are product promises, safe to keep. I did not invent fake client results or testimonials. Add a real testimonial strip once you have one — it's the single biggest credibility upgrade.
-- Contact email is `navimarketing@gmail.com` (footer + form fallback).
+- Contact email is `soonaviscaling@gmail.com` (footer + form fallback).
 - To edit anything later: change `index.html`, commit, push. Vercel redeploys on its own.
