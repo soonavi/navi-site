@@ -107,14 +107,13 @@
   .brand{display:flex;align-items:center;gap:.6em;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.15rem;letter-spacing:-.01em}
   .brand .mark{width:30px;height:30px;flex:none}
   .brand b{font-weight:700}
-  .brand span{color:var(--signal-deep)}
   .nav-links{display:flex;align-items:center;gap:34px}
   .nav-links a.nl{font-size:.94rem;color:var(--ink-soft);font-weight:500;position:relative}
   .nav-links a.nl:hover{color:var(--ink)}
   .nav-links a.nl::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:var(--signal);transition:width .2s ease}
   .nav-links a.nl:hover::after{width:100%}
   .nav-cta{display:flex;align-items:center;gap:14px}
-  .menu-btn{display:none;background:none;border:none;cursor:pointer;padding:8px}
+  .menu-btn{display:none;background:none;border:none;cursor:pointer;padding:11px 8px}
   .menu-btn span{display:block;width:22px;height:2px;background:var(--ink);margin:4px 0;transition:transform .25s ease,opacity .2s ease}
   .menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
   .menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
@@ -304,13 +303,22 @@
   .foot-brand p{color:var(--ink-soft);font-size:.92rem;margin-top:12px}
   .foot-cols{display:flex;gap:64px;flex-wrap:wrap}
   .foot-col h4{font-family:'Inter',sans-serif;font-weight:600;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px;font-weight:700}
-  .foot-col a{display:block;font-size:.94rem;color:var(--ink);margin-bottom:9px}
+  .foot-col a{display:block;font-size:.94rem;color:var(--ink);padding:5px 0;margin-bottom:2px}
   .foot-col a:hover{color:var(--signal-deep)}
   .foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:48px;padding-top:24px;border-top:1px solid var(--line);font-family:'Inter',sans-serif;font-weight:600;font-size:.76rem;color:var(--ink-soft);letter-spacing:.03em}
 
   /* reveal */
   .r{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
   .r.in{opacity:1;transform:none}
+
+  /* floating CTA — visible only between the hero and the contact section */
+  .float-cta{
+    position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:60;
+    box-shadow:0 12px 32px rgba(12,28,44,.32);
+    opacity:0;transform:translateY(14px);pointer-events:none;
+    transition:opacity .3s ease,transform .3s ease;
+  }
+  .float-cta.show{opacity:1;transform:none;pointer-events:auto}
 
   /* ---------- responsive ---------- */
   @media(max-width:900px){
@@ -323,7 +331,6 @@
     .step:last-child{border-bottom:none}
     .nav-links{display:none}
     .menu-btn{display:block}
-    .menu-btn{padding:11px 8px} /* ~44px tall tap target */
     /* order the hero so copy leads and the panel follows */
     .hero-grid{padding-top:clamp(40px,9vw,72px)}
     .hero .lede{max-width:52ch}
@@ -356,6 +363,7 @@
     .cta-form .btn{justify-content:center}
     .foot-cols{gap:36px}
     .foot-inner{gap:36px}
+    .float-cta{right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px))}
   }
 
   @media(max-width:400px){
@@ -658,6 +666,9 @@
   </div>
 </footer>
 
+<!-- FLOATING CTA -->
+<a class="btn btn-signal float-cta" id="floatCta" href="#contact" aria-hidden="true" tabindex="-1">Book a call <span class="arrow">→</span></a>
+
 <script>
   // nav border on scroll
   const nav=document.getElementById('nav');
@@ -673,6 +684,28 @@
     menuBtn.setAttribute('aria-label',open?'Close menu':'Open menu');
   });
   mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+
+  // floating CTA — show after the hero scrolls away, hide once the contact
+  // form or footer is on screen (the button would be redundant there)
+  const floatCta=document.getElementById('floatCta');
+  let heroVisible=true,contactVisible=false,footerVisible=false;
+  function updateFloatCta(){
+    const show=!heroVisible&&!contactVisible&&!footerVisible;
+    floatCta.classList.toggle('show',show);
+    floatCta.setAttribute('aria-hidden',String(!show));
+    floatCta.tabIndex=show?0:-1;
+  }
+  new IntersectionObserver(es=>{heroVisible=es[0].isIntersecting;updateFloatCta();})
+    .observe(document.getElementById('top'));
+  const endIo=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.target.id==='contact')contactVisible=e.isIntersecting;
+      else footerVisible=e.isIntersecting;
+    });
+    updateFloatCta();
+  },{threshold:.1});
+  endIo.observe(document.getElementById('contact'));
+  endIo.observe(document.querySelector('footer'));
 
   // reveal on scroll
   const io=new IntersectionObserver((es)=>{
