@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Listing Videos for Realtors | Navi Marketing</title>
+<meta name="description" content="Send us your listing photos and get a finished walkthrough video for Reels, TikTok and the MLS. Real photos, branded to you, back within 24 hours.">
+<meta name="theme-color" content="#0C1C2C">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Listing Videos for Realtors | Navi Marketing">
+<meta property="og:description" content="Your listing photos turned into a finished walkthrough video, branded to you, usually within 24 hours.">
+<meta property="og:site_name" content="Navi Marketing">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0C1C2C; --ink-soft:#46586B; --paper:#EDF1F5; --surface:#FFFFFF; --line:#D8E0E8;
+    --signal:#13B0A2; --signal-glow:#39D8C9; --signal-deep:#0B8478; --danger:#C2433F;
+    --shadow:0 1px 2px rgba(12,28,44,.04),0 12px 32px rgba(12,28,44,.07);
+    --r:14px; --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;line-height:1.08;letter-spacing:-.02em;font-weight:700}
+  .eyebrow{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--signal-deep)}
+
+  header{border-bottom:1px solid var(--line);background:rgba(237,241,245,.92)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:.6em;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;text-decoration:none}
+  .brand svg{width:28px;height:28px}
+  .brand b{font-weight:400;color:var(--ink-soft)}
+  .back{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.92rem;text-decoration:none;color:var(--ink-soft)}
+  .back:hover{color:var(--ink)}
+
+  .hero{padding:64px 0 32px}
+  .hero h1{font-size:clamp(2rem,4.6vw,3.2rem);max-width:16ch;margin:14px 0 16px}
+  .hero p{color:var(--ink-soft);font-size:1.08rem;max-width:58ch}
+  .points{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:36px 0 8px}
+  .point{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)}
+  .point h3{font-size:1.05rem;margin-bottom:6px}
+  .point p{color:var(--ink-soft);font-size:.95rem}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:32px;margin:32px 0 72px}
+  #formWrap h2{font-size:1.6rem;margin-bottom:6px}
+  #formWrap > p{color:var(--ink-soft);margin-bottom:24px}
+  fieldset{border:0;margin:0 0 26px}
+  legend{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.02rem;margin-bottom:12px}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .grid.three{grid-template-columns:repeat(3,1fr)}
+  .full{grid-column:1/-1}
+  label{display:block;font-weight:600;font-size:.86rem;margin-bottom:6px}
+  label .opt{font-weight:500;color:var(--ink-soft)}
+  input,textarea,select{width:100%;font:inherit;font-size:.98rem;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:.7em .85em}
+  textarea{min-height:110px;resize:vertical}
+  input:focus,textarea:focus,select:focus{outline:2px solid var(--signal);outline-offset:1px;background:#fff}
+  .hint{font-size:.82rem;color:var(--ink-soft);margin-top:6px}
+  .check{display:flex;gap:12px;align-items:flex-start;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:10px;font-size:.93rem}
+  .check input{width:18px;height:18px;margin-top:3px;flex:none;accent-color:var(--signal-deep)}
+  .check span{font-weight:500}
+  .btn{display:inline-flex;align-items:center;gap:.5em;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;padding:.9em 1.6em;border-radius:999px;border:0;cursor:pointer;background:var(--ink);color:#fff;transition:transform .18s,box-shadow .18s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(12,28,44,.25)}
+  .btn[disabled]{opacity:.65;cursor:wait;transform:none;box-shadow:none}
+  .err{display:none;color:var(--danger);font-weight:600;font-size:.92rem;margin-top:14px}
+  .done{display:none;text-align:center;padding:40px 10px}
+  .done h2{margin-bottom:8px}
+  .done p{color:var(--ink-soft)}
+  .hp{position:absolute;left:-9999px;opacity:0;height:0;width:0}
+
+  footer{border-top:1px solid var(--line);padding:28px 0;color:var(--ink-soft);font-size:.86rem}
+  footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+  @media (max-width:760px){
+    .points,.grid,.grid.three{grid-template-columns:1fr}
+    .card{padding:22px 18px}
+    .hero{padding:44px 0 20px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/" aria-label="Navi Marketing home">
+      <svg viewBox="0 0 512 512" fill="none" aria-hidden="true"><defs><linearGradient id="nm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#16334E"/><stop offset="1" stop-color="#0A1826"/></linearGradient></defs><rect width="512" height="512" rx="118" fill="url(#nm)"/><path d="M120 170 H172 L278 340 V170 H330 V420 H278 L172 250 V420 H120 Z" fill="#F5F8FB"/><path d="M350 166 L436 80 M381 80 h55 v55" stroke="#38BDF8" stroke-width="26" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Navi<b> Marketing</b></span>
+    </a>
+    <a class="back" href="/">Main site</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="eyebrow">For realtors</div>
+    <h1>Your listing photos, turned into a walkthrough video.</h1>
+    <p>Send us the photos you already have. You get a finished video for Reels, TikTok and the MLS with your name, brokerage and number on it, usually within 24 hours.</p>
+    <div class="points">
+      <div class="point"><h3>The real house</h3><p>We add slow camera motion to your photos. Nothing is generated, added or removed, so buyers see what they'll walk into.</p></div>
+      <div class="point"><h3>Two formats</h3><p>Vertical for Reels and TikTok, horizontal for the MLS, YouTube and your website.</p></div>
+      <div class="point"><h3>Copy included</h3><p>Captions and a listing description, checked for fair-housing language before you see them.</p></div>
+    </div>
+  </section>
+
+  <section class="card" id="order">
+    <div id="formWrap">
+      <h2>Order a listing video</h2>
+      <p>Takes about two minutes. We'll confirm by email and send the video for your review before it goes anywhere.</p>
+
+      <form id="orderForm" novalidate>
+        <fieldset>
+          <legend>You</legend>
+          <div class="grid">
+            <div><label for="agentName">Full name</label><input id="agentName" required autocomplete="name"></div>
+            <div><label for="brokerage">Brokerage</label><input id="brokerage" required autocomplete="organization"></div>
+            <div><label for="agentEmail">Email</label><input id="agentEmail" type="email" required autocomplete="email"></div>
+            <div><label for="agentPhone">Phone <span class="opt">(shown on the video)</span></label><input id="agentPhone" type="tel" required autocomplete="tel"></div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>The listing</legend>
+          <div class="grid">
+            <div class="full"><label for="address">Property address</label><input id="address" required placeholder="123 Main St, Tampa, FL 33606"></div>
+            <div><label for="price">List price <span class="opt">(optional)</span></label><input id="price" placeholder="$549,000"></div>
+            <div><label for="status">Status</label>
+              <select id="status"><option>Coming soon</option><option selected>Just listed</option><option>Open house</option><option>Price improvement</option><option>Under contract</option><option>Just sold</option></select>
+            </div>
+          </div>
+          <div class="grid three" style="margin-top:14px">
+            <div><label for="beds">Beds</label><input id="beds" inputmode="decimal"></div>
+            <div><label for="baths">Baths</label><input id="baths" inputmode="decimal"></div>
+            <div><label for="sqft">Sq ft</label><input id="sqft" inputmode="numeric"></div>
+          </div>
+          <div style="margin-top:14px"><label for="features">Features to highlight <span class="opt">(one per line)</span></label>
+            <textarea id="features" placeholder="Quartz kitchen counters&#10;Fenced backyard&#10;New roof 2025"></textarea>
+            <div class="hint">Describe the home, not who it's for. We only show what's in your photos and what you list here.</div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Photos</legend>
+          <label for="photos">Link to the photo folder</label>
+          <input id="photos" type="url" required placeholder="Google Drive, Dropbox or iCloud link">
+          <div class="hint">10 to 25 photos works best. Make sure the link is set so anyone with it can view.</div>
+          <div class="grid" style="margin-top:14px">
+            <div><label for="formats">Formats</label>
+              <select id="formats"><option selected>Vertical and horizontal</option><option>Vertical only (Reels/TikTok)</option><option>Horizontal only (MLS/YouTube)</option></select>
+            </div>
+            <div><label for="music">Music feel</label>
+              <select id="music"><option selected>Warm and calm</option><option>Upbeat</option><option>Luxury, cinematic</option><option>No music</option></select>
+            </div>
+            <div class="full"><label for="notes">Anything else <span class="opt">(optional)</span></label><textarea id="notes" style="min-height:80px" placeholder="Showing dates, shots to skip, deadline"></textarea></div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Confirm</legend>
+          <label class="check"><input type="checkbox" id="rights" required><span>I own these photos or have the photographer's permission to use them for marketing this listing.</span></label>
+          <label class="check"><input type="checkbox" id="review" required><span>I'll review the video before publishing it. I understand camera motion is added to real photos and the video says so.</span></label>
+        </fieldset>
+
+        <input type="text" id="hp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn" type="submit" id="submitBtn">Send my order <span aria-hidden="true">→</span></button>
+        <div class="err" id="err" role="alert"></div>
+      </form>
+    </div>
+
+    <div class="done" id="done" role="status">
+      <h2>Order received.</h2>
+      <p>We'll email you to confirm, then send your video for review. Questions: <a href="mailto:soonaviscaling@gmail.com">soonaviscaling@gmail.com</a></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Navi Marketing</span>
+    <a href="mailto:soonaviscaling@gmail.com">soonaviscaling@gmail.com</a>
+  </div>
+</footer>
+
+<script>
+  // Same Web3Forms key as the main contact form. Orders land in soonaviscaling@gmail.com.
+  const WEB3FORMS_KEY = 'a1318145-69be-4164-8cea-9d7cd3603aab';
+
+  const $ = id => document.getElementById(id);
+  const val = id => $(id).value.trim();
+  const form = $('orderForm'), err = $('err'), btn = $('submitBtn');
+
+  function fail(msg, focusId){
+    err.innerHTML = msg; err.style.display = 'block';
+    if(focusId) $(focusId).focus();
+  }
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    err.style.display = 'none';
+    if($('hp').value){ showDone(); return; } // bots
+
+    const required = [['agentName','your name'],['brokerage','your brokerage'],['agentEmail','your email'],
+                      ['agentPhone','your phone'],['address','the property address'],['photos','the photo link']];
+    for(const [id,label] of required){ if(!val(id)) return fail('Please add ' + label + '.', id); }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('agentEmail'))) return fail('Please check your email address.', 'agentEmail');
+    if(!/^https?:\/\//i.test(val('photos'))) return fail('The photo link should start with https://', 'photos');
+    if(!$('rights').checked) return fail('Please confirm you have the rights to use these photos.', 'rights');
+    if(!$('review').checked) return fail('Please confirm you will review the video before publishing.', 'review');
+
+    const num = s => { const n = parseFloat(String(s).replace(/[^0-9.]/g,'')); return isNaN(n) ? undefined : n; };
+    const listing = {
+      address: val('address'),
+      city: (val('address').split(',')[1] || '').trim() || undefined,
+      price: val('price') || undefined,
+      beds: num(val('beds')), baths: num(val('baths')), sqft: num(val('sqft')),
+      features: val('features').split('\n').map(s => s.trim()).filter(Boolean),
+      status: $('status').value,
+      agent: { name: val('agentName'), brokerage: val('brokerage'), phone: val('agentPhone'), email: val('agentEmail') },
+      cta: 'Call or text to book a showing'
+    };
+
+    const original = btn.innerHTML;
+    btn.disabled = true; btn.innerHTML = 'Sending...';
+    try{
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: 'Listing video order: ' + listing.address,
+          from_name: 'Navi Marketing listing videos',
+          email: listing.agent.email,
+          name: listing.agent.name,
+          brokerage: listing.agent.brokerage,
+          phone: listing.agent.phone,
+          address: listing.address,
+          photo_link: val('photos'),
+          formats: $('formats').value,
+          music: $('music').value,
+          notes: val('notes'),
+          photo_rights_confirmed: 'yes',
+          review_before_publishing_confirmed: 'yes',
+          'listing.json': JSON.stringify(listing, null, 2)
+        })
+      });
+      const data = await res.json();
+      if(!data.success) throw new Error(data.message || 'failed');
+      showDone();
+    }catch(_){
+      btn.disabled = false; btn.innerHTML = original;
+      fail('Something went wrong. Email the photo link to <a href="mailto:soonaviscaling@gmail.com">soonaviscaling@gmail.com</a> and we will take it from there.');
+    }
+  });
+
+  function showDone(){ $('formWrap').style.display = 'none'; $('done').style.display = 'block'; }
+</script>
+</body>
+</html>
